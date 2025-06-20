@@ -19,6 +19,9 @@ contract RaffleTest is Test {
     uint256 entranceFee;
     uint256 interval;
 
+    event RaffleEntered(address indexed player);
+    event WinnerPicked(address indexed winner);
+
     function setUp() external {
         DeployRaffle deployRaffle = new DeployRaffle();
         (raffle, helperConfig) = deployRaffle.deployContract();
@@ -50,6 +53,14 @@ contract RaffleTest is Test {
         raffle.enterRaffle{value: entranceFee}();
 
         assertEq(raffle.getPlayer(0), PLAYER);
+        vm.stopPrank();
+    }
+
+    function testEnterRaffleEmitsEvent() external {
+        vm.startPrank(PLAYER);
+        vm.expectEmit(true, false, false, false, address(raffle));
+        emit RaffleEntered(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
         vm.stopPrank();
     }
 }
