@@ -16,6 +16,9 @@ abstract contract CodeConstants {
 
     uint256 public constant ETH_SEPOLIA_CHAIN_ID = 11155111;
     uint256 public constant LOCAL_CHAIN_ID = 31337;
+
+    address public constant FOUNDRY_DEFAULT_SENDER =
+        0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38;
 }
 
 contract HelperConfig is Script, CodeConstants {
@@ -29,6 +32,7 @@ contract HelperConfig is Script, CodeConstants {
         uint256 entranceFee;
         uint256 interval;
         address link;
+        address account;
     }
 
     NetworkConfig public activeNetworkConfig;
@@ -55,6 +59,13 @@ contract HelperConfig is Script, CodeConstants {
         return getConfigByChainId(block.chainid);
     }
 
+    function setConfig(
+        uint256 chainId,
+        NetworkConfig memory networkConfig
+    ) public {
+        networkConfigs[chainId] = networkConfig;
+    }
+
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         return
             NetworkConfig({
@@ -64,7 +75,8 @@ contract HelperConfig is Script, CodeConstants {
                 callbackGasLimit: 500000,
                 entranceFee: 0.01 ether,
                 interval: 30 seconds,
-                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+                link: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+                account: 0x48b2680068F311e7D777dc9502957325dAe1DF99
             });
     }
 
@@ -90,7 +102,8 @@ contract HelperConfig is Script, CodeConstants {
                 callbackGasLimit: 100000,
                 entranceFee: 0.01 ether,
                 interval: 30 seconds,
-                link: address(linkToken)
+                link: address(linkToken),
+                account: FOUNDRY_DEFAULT_SENDER
             });
     }
 }
