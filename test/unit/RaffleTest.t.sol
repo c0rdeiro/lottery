@@ -14,7 +14,7 @@ contract RaffleTest is Test {
     uint256 private PLAYER_STARTING_BALANCE = 10 ether;
     address vrfCoordinator;
     bytes32 gasLane;
-    uint64 subscriptionId;
+    uint256 subscriptionId;
     uint32 callbackGasLimit;
     uint256 entranceFee;
     uint256 interval;
@@ -60,6 +60,20 @@ contract RaffleTest is Test {
         vm.startPrank(PLAYER);
         vm.expectEmit(true, false, false, false, address(raffle));
         emit RaffleEntered(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.stopPrank();
+    }
+
+    function testDontAllowEntranceWhenRaffleNotOpen() external {
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+
+        vm.warp(block.timestamp + interval + 1);
+        vm.roll(block.number + 1);
+
+        raffle.performUpkeep("");
+
+        vm.expectRevert(Raffle.Raffle__RaffleNotOpen.selector);
         raffle.enterRaffle{value: entranceFee}();
         vm.stopPrank();
     }
