@@ -1,8 +1,3 @@
-> ! Updates from Video
->
-> 1. V2.5 of Chainlink VRF uses a `uint256` as a subId instead of a `uint64` this repo has a comment to reflect that. We added a mock in case you'd like to work with version 2.5.
-> 2. We use `0.1.0` of the `foundry-devops` package which doesn't need to have `ffi=true`
-
 # Foundry Smart Contract Lottery
 
 This is a section of the Cyfrin Foundry Solidity Course.
@@ -14,13 +9,13 @@ This is a section of the Cyfrin Foundry Solidity Course.
   - [Start a local node](#start-a-local-node)
   - [Library](#library)
   - [Deploy](#deploy)
-  - [Deploy - Other Network](#deploy---other-network)
   - [Testing](#testing)
     - [Test Coverage](#test-coverage)
 - [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
   - [Scripts](#scripts)
   - [Estimate gas](#estimate-gas)
 - [Formatting](#formatting)
+- [What I've Leaned](#what-ive-learned)
 
 # Getting Started
 
@@ -107,8 +102,6 @@ This will setup a ChainlinkVRF Subscription for you. If you already have one, up
 
 Go to [automation.chain.link](https://automation.chain.link/new) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation. Your UI will look something like this once completed:
 
-![Automation](./img/automation.png)
-
 ## Scripts
 
 After deploying to a testnet or local net, you can run the scripts.
@@ -142,3 +135,28 @@ To run code formatting:
 ```
 forge fmt
 ```
+
+# What I've learned
+
+- CEI methodology (Checks-Effects-Interactions pattern)
+- Custom gas-efficient errors with multiple parameters
+- Enums and type declarations as unsigned integers
+- Private state variables and getter functions
+- Verbose constructors for multi-chain deployment
+- Network configuration for different blockchain networks
+- Chainlink VRF integration for verifiable randomness
+- Chainlink Automation for automatic smart contract execution
+- Event emissions for frontend indexing and migrations
+- Mock contracts for testing blockchain interactions
+- Broadcasting and deploying contracts from command line
+- Programmatic VRF consumer management
+- Interaction scripts for subscription and consumer management
+- Comprehensive unit testing strategies
+- Event capture and reuse patterns in tests
+- Testing with mock Chainlink tokens
+- Modifiers and expected revert testing
+- ABI encoder patterns and debugging
+- Testnet deployment with live Chainlink services
+- LINK token funding for VRF and automation subscriptions
+- Advanced scripting and deployment methodologies
+- Fuzz testing
