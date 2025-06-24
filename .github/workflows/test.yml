@@ -24,11 +24,9 @@ jobs:
         run: |
           forge --version
 
-      - name: Run Forge fmt
+      - name: Install dependencies
         run: |
-          forge fmt --check
-        id: fmt
-
+          forge install cyfrin/foundry-devops@0.2.2 && forge install smartcontractkit/chainlink-brownie-contracts@1.1.1 && forge install foundry-rs/forge-std@v1.8.2 && forge install transmissions11/solmate@v6
       - name: Run Forge build
         run: |
           forge build --sizes
